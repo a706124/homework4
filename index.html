@@ -8,9 +8,34 @@
 </head>
 
 <body>
-<a href="2d-Scatter-hw_new2.html" target="_blank">作業一</a>
+<script>
+d3.json("invoice-taipei.json", function(data) {
+	var bodys = d3.select("#svgs1");
+
+	var f_data = data.filter(function(d) {
+		return d.amount > 1000000000 && d.cid == "A" && d.date.substr(0, 6) == "2016/8";
+	});
+
+	for (var i = 0; i < f_data.length; i++) {
+		bodys.append("text").attr({
+			x: 20,
+			y: (20 * i) + 35,
+			"font-size": "13px"
+		}).text(f_data[i].industry);
+		bodys.append("rect").attr({
+			x: 250,
+			y: (20 * i) + 22,
+			width: f_data[i].amount / 100000000,
+			height: 18,
+			fill: "#ffff00"
+		});
+	}
+});
+</script>
 <hr>
 <a href="2d-Scatter-hw_new2.html" target="_blank">作業二</a>
+<hr>
+<a href="2d-Scatter-hw_new2.html" target="_blank">作業三</a>
 <hr>
 <script>
 var svg = d3.select("body").append("svg").attr({
