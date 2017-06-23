@@ -127,12 +127,12 @@
 
             d3.select('#select2').on("change", function(d) {
                 var value = d3.select('#select2').property("value");
-
+				console.log(value);
                 if (value == "全部類別") {
                     bind(allData2);
                     render(allData2);
                 } else {
-                    update(value);
+                    update2(value);
                 }
 
 
