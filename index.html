@@ -6,13 +6,18 @@
     <title>作業</title>
 <script src="https://d3js.org/d3.v3.js"></script>
 </head>
-
+<style type="text/css">
+	.xaxis path,
+	.xaxis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+</style>
 <body>
-<svg width="900" height="500" id="svgs1"></svg>
-<hr>
-<svg width="900" height="500" id="svg1"></svg>
+<svg width="900" height="300" id="svgs1"></svg>
 <script>
-d3.json("invoice-taipei.json", function(data) {
+d3.json("https://a706124.github.io/homework4/invoice-taipei.json", function(data) {
 	var bodys = d3.select("#svgs1");
 
 	var f_data = data.filter(function(d) {
@@ -30,10 +35,21 @@ d3.json("invoice-taipei.json", function(data) {
 			y: (20 * i) + 22,
 			width: f_data[i].amount / 100000000,
 			height: 18,
-			fill: "#ffff00"
+			fill: "#ff0000"
 		});
 	}
+	
+	var xScale = d3.scale.linear()
+		.domain([0, d3.max(f_data, function(d) {
+		return d.amount;
+	})]).range([0, 300]);
+	
+	var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5).tickFormat(function(d) {
+		return Math.floor(d / 1000000000) + "G";
+	});
+	d3.select("#svgs1").append("g").attr("class", "xaxis").attr("transform", "translate(250,250)").call(xAxis);
 });
+
 </script>
 <hr>
 <a href="2d-Scatter-hw_new2.html" target="_blank">作業二</a>
@@ -41,9 +57,10 @@ d3.json("invoice-taipei.json", function(data) {
 <a href="2d-Scatter-hw_new2.html" target="_blank">作業三</a>
 <hr>
 <script>
-var svg = d3.select("body").append("#svg1").attr({
+var svg = d3.select("body").append("svg").attr({
    width: "340",
-   height: "340"
+   height: "340",
+   id:'svg1',
 });
 
 svg.append("g").append("rect").attr({
@@ -60,9 +77,9 @@ bind(easeArr);
 render();
 
 function bind(dataSet){
-  var selection_circle = d3.select("svg").selectAll("circle").data(dataSet);
-  var selection_text = d3.select("svg").selectAll("text").data(dataSet);
-  var selection_line = d3.select("svg").selectAll("line").data(dataSet);
+  var selection_circle = d3.select("#svg1").selectAll("circle").data(dataSet);
+  var selection_text = d3.select("#svg1").selectAll("text").data(dataSet);
+  var selection_line = d3.select("#svg1").selectAll("line").data(dataSet);
   
   // 初始化設定
   selection_line.enter().append("line").attr({
