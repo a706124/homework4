@@ -10,6 +10,7 @@
 <body>
 <svg width="900" height="500" id="svgs1"></svg>
 <hr>
+<svg width="900" height="500" id="svg1"></svg>
 <script>
 d3.json("invoice-taipei.json", function(data) {
 	var bodys = d3.select("#svgs1");
@@ -40,7 +41,7 @@ d3.json("invoice-taipei.json", function(data) {
 <a href="2d-Scatter-hw_new2.html" target="_blank">作業三</a>
 <hr>
 <script>
-var svg = d3.select("body").append("svg").attr({
+var svg = d3.select("body").append("#svg1").attr({
    width: "340",
    height: "340"
 });
