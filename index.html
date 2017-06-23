@@ -126,7 +126,10 @@ function render(){
   //需要動畫的設定
   d3.select("#svg1").selectAll("circle")
   .on("click", function(d){
-     d3.select(this).transition().ease(d).attr({cx:300}).transition().attr({cx:100}).ease(d);
+	  if(this.cx.animVal.value==100)
+     d3.select(this).transition().ease(d).attr({cx:300});
+	 else
+	 d3.select(this).transition().ease(d).attr({cx:100});
   });
      
     
