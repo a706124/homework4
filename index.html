@@ -124,7 +124,7 @@ function bind(dataSet){
 function render(){
 
   //需要動畫的設定
-  d3.select("svg").selectAll("circle")
+  d3.select("#svg1").selectAll("circle")
   .on("click", function(d){
      d3.select(this).transition().ease(d).attr({cx:300}).transition().attr({cx:100}).ease(d);
   });
